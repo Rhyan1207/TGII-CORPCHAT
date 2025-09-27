@@ -1,0 +1,12 @@
+{
+  "name": "tg2-corpchat",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo \"No build step\"",
+    "start": "vercel dev"
+  },
+  "dependencies": {}
+}
