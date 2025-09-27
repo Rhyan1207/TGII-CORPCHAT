@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logout-btn");
   const status = document.getElementById("status");
 
-  // Verifica se usuário é funcionário
+  // Garante que é funcionário
   const role = localStorage.getItem("role");
   if (role !== "func") {
     alert("Acesso restrito. Faça login como Funcionário.");
@@ -15,63 +15,73 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Função para adicionar mensagens no chat
+  // Utilitários
   function addMessage(text, sender) {
     const msg = document.createElement("div");
     msg.classList.add("msg", sender);
     msg.textContent = text;
     chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight; // Scroll automático
+    chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  // Evento de enviar mensagem
-  sendBtn.addEventListener("click", () => handleSend());
-  questionInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") handleSend();
-  });
+  async function askBackend(question) {
+    const payload = {
+      orgId: "demo-org", // TODO: substituir por orgId real quando houver auth/DB
+      question,
+      // Enquanto não buscamos no DB, enviamos o que a corporação salvou localmente
+      companyText: localStorage.getItem("companyInfo") || "",
+      laborText: localStorage.getItem("laborInfo") || "",
+    };
 
-  function handleSend() {
+    const resp = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => "");
+      throw new Error(`Erro na API /api/ask: ${resp.status} ${errText}`);
+    }
+
+    const data = await resp.json().catch(() => ({}));
+    return data?.answer || "Sem resposta do backend.";
+  }
+
+  async function handleSend() {
     const question = questionInput.value.trim();
     if (!question) return;
 
     addMessage(question, "user");
     questionInput.value = "";
-    status.textContent = "Aguarde, consultando IA...";
+    questionInput.focus();
 
-    // --- MVP: resposta local usando dados salvos ---
-    const companyInfo = localStorage.getItem("companyInfo") || "";
-    const laborInfo = localStorage.getItem("laborInfo") || "";
+    // UI: bloqueia envio e mostra status
+    sendBtn.disabled = true;
+    status.textContent = "Consultando IA...";
+    status.style.color = "#666";
 
-    // Resposta fake usando localStorage
-    setTimeout(() => {
-      let answer = "Não encontrei nada relacionado a isso na base da empresa.";
-      const allInfo = `${companyInfo}\n${laborInfo}`.toLowerCase();
-
-      if (allInfo.includes("horário") || question.toLowerCase().includes("horário")) {
-        answer = "Nosso horário de funcionamento é das 8h às 18h (exemplo).";
-      } else if (allInfo.includes("pis") || question.toLowerCase().includes("pis")) {
-        answer = "Você pode consultar seu PIS no RH ou no app da Caixa (exemplo).";
-      } else if (companyInfo || laborInfo) {
-        answer = "Essa resposta está limitada ao MVP local. A IA trará dados mais completos em breve.";
-      }
-
+    try {
+      const answer = await askBackend(question);
       addMessage(answer, "bot");
+    } catch (e) {
+      console.error(e);
+      addMessage("Erro ao consultar IA. Tente novamente em instantes.", "bot");
+    } finally {
       status.textContent = "";
-    }, 800);
-
-    // --- Futuro: enviar pergunta ao backend ---
-    // fetch("/api/ask", { method: "POST", body: JSON.stringify({ question }) })
-    //   .then(res => res.json())
-    //   .then(data => addMessage(data.answer, "bot"))
-    //   .catch(() => addMessage("Erro ao consultar IA.", "bot"))
-    //   .finally(() => status.textContent = "");
+      sendBtn.disabled = false;
+    }
   }
 
-  // Logout
+  // Eventos
+  sendBtn.addEventListener("click", handleSend);
+  questionInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") handleSend();
+  });
+
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("role");
     localStorage.removeItem("email");
     window.location.href = "index.html";
   });
 });
-
