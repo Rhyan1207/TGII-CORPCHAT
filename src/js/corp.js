@@ -27,15 +27,44 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedKey) aiKey.value = savedKey;
 
   // Função de salvar
-  saveBtn.addEventListener("click", () => {
+  saveBtn.addEventListener("click", async () => {
+    statusMsg.textContent = "";
+    saveBtn.disabled = true;
+
+    // Salva local (MVP)
     localStorage.setItem("companyInfo", companyInfo.value);
     localStorage.setItem("laborInfo", laborInfo.value);
     localStorage.setItem("aiKey", aiKey.value);
 
-    statusMsg.textContent = "Dados salvos com sucesso!";
-    statusMsg.style.color = "green";
+    try {
+      // Envia para o backend (Vercel)
+      const resp = await fetch("/api/save-knowledge", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orgId: "demo-org",
+          companyText: companyInfo.value,
+          laborText: laborInfo.value,
+          aiProvider: "openai",
+          aiApiKey: aiKey.value, // MVP: ok; produção: usar painel seguro/ENV
+        }),
+      });
 
-    setTimeout(() => (statusMsg.textContent = ""), 3000);
+      if (!resp.ok) {
+        const errText = await resp.text().catch(() => "");
+        throw new Error(`Falha ao salvar no servidor: ${resp.status} ${errText}`);
+      }
+
+      statusMsg.textContent = "Dados salvos com sucesso!";
+      statusMsg.style.color = "green";
+    } catch (e) {
+      console.error(e);
+      statusMsg.textContent = "Erro ao salvar. Verifique sua conexão e tente novamente.";
+      statusMsg.style.color = "crimson";
+    } finally {
+      setTimeout(() => (statusMsg.textContent = ""), 3000);
+      saveBtn.disabled = false;
+    }
   });
 
   // Logout
