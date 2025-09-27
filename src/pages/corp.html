@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Corporação | CorpChat</title>
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Painel da Corporação</h1>
+    <button id="logout-btn">Sair</button>
+  </header>
+
+  <main class="container">
+    <!-- Aba Funcionários -->
+    <section class="section-block">
+      <h2>Funcionários (lista demonstrativa)</h2>
+      <ul id="employee-list">
+        <li>Maria – RH</li>
+        <li>João – Financeiro</li>
+        <li>Ana – Operações</li>
+      </ul>
+    </section>
+
+    <!-- Aba Base da Empresa -->
+    <section class="section-block">
+      <h2>Base de Conhecimento da Empresa</h2>
+      <textarea id="company-info" placeholder="Insira missão, valores, horários, dress code..."></textarea>
+    </section>
+
+    <!-- Aba RH / Leis Trabalhistas -->
+    <section class="section-block">
+      <h2>RH / Leis Trabalhistas</h2>
+      <textarea id="labor-info" placeholder="Informações sobre PIS, FGTS, férias, hora extra..."></textarea>
+    </section>
+
+    <!-- Aba Chave da IA -->
+    <section class="section-block">
+      <h2>Chave da IA</h2>
+      <input type="password" id="ai-key" placeholder="Cole a chave da API da IA aqui" />
+    </section>
+
+    <button id="save-btn">Salvar Alterações</button>
+    <p id="status-msg" class="status"></p>
+  </main>
+
+  <script src="../js/corp.js"></script>
+</body>
+</html>
 
