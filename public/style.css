@@ -11,6 +11,7 @@ html, body {
   background: #f8f9fa;
   color: #222;
   height: 100%;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 h1, h2 {
@@ -32,6 +33,7 @@ header {
   padding: 0.8rem 1.2rem;
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 header h1 {
@@ -45,6 +47,7 @@ header button {
   padding: 0.4rem 1rem;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 header button:hover {
@@ -71,6 +74,9 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
+  background: #fff;
+  color: inherit;
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 textarea {
@@ -85,6 +91,7 @@ button {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 button:disabled {
@@ -117,6 +124,7 @@ button:hover:not(:disabled) {
   border-radius: 8px;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 #status-msg {
@@ -133,6 +141,7 @@ button:hover:not(:disabled) {
   height: 60vh;
   overflow-y: auto;
   margin-bottom: 1rem;
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 .msg {
@@ -164,10 +173,75 @@ button:hover:not(:disabled) {
   padding: 0.6rem;
   border: 1px solid #ccc;
   border-radius: 6px;
+  background: #fff;
+  transition: background 0.3s ease, border 0.3s ease;
 }
 
 #status {
   font-size: 0.9rem;
   color: #666;
   margin-top: 0.4rem;
+}
+
+/* -------- Dark Mode -------- */
+body.dark {
+  background: #121212;
+  color: #f1f1f1;
+}
+
+body.dark header {
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+body.dark header button {
+  background: #f1f1f1;
+  color: #121212;
+}
+
+body.dark header button:hover {
+  background: #ddd;
+}
+
+body.dark input[type="email"],
+body.dark input[type="password"],
+body.dark input[type="text"],
+body.dark textarea,
+body.dark .input-row input {
+  background: #1e1e1e;
+  border: 1px solid #444;
+  color: #f1f1f1;
+}
+
+body.dark .section-block {
+  background: #1e1e1e;
+  box-shadow: none;
+  border: 1px solid #333;
+}
+
+body.dark #chat {
+  background: #1e1e1e;
+  border: 1px solid #333;
+}
+
+body.dark .msg.user {
+  background: #2a3d5e;
+}
+
+body.dark .msg.bot {
+  background: #2b2b2b;
+  border: 1px solid #444;
+}
+
+body.dark button {
+  background: #f1f1f1;
+  color: #121212;
+}
+
+body.dark button:hover:not(:disabled) {
+  background: #ddd;
+}
+
+body.dark #status {
+  color: #aaa;
 }
