@@ -6,10 +6,15 @@
   <title>Login | CorpChat</title>
   <link rel="stylesheet" href="../styles.css" />
 </head>
-<body>
-  <div class="container">
-    <h1>CorpChat – Login</h1>
 
+<!-- Começa em modo claro; a classe "dark" será adicionada via JS -->
+<body>
+  <header style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1.2rem;">
+    <h1>CorpChat – Login</h1>
+    <button id="theme-toggle">🌙 Modo Escuro</button>
+  </header>
+
+  <div class="container">
     <!-- Seleção do perfil -->
     <div class="role-select">
       <label>
@@ -33,6 +38,18 @@
   </div>
 
   <script src="../js/auth.js"></script>
+  <script>
+    // Alternância de modo claro/escuro
+    const btnToggle = document.getElementById('theme-toggle');
+    btnToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      // Atualiza ícone/texto do botão
+      if (document.body.classList.contains('dark')) {
+        btnToggle.textContent = '☀️ Modo Claro';
+      } else {
+        btnToggle.textContent = '🌙 Modo Escuro';
+      }
+    });
+  </script>
 </body>
 </html>
-
