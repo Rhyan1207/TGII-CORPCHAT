@@ -1,8 +1,8 @@
 {
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/src/pages/index.html" },
-    { "source": "/corp", "destination": "/src/pages/corp.html" },
-    { "source": "/func", "destination": "/src/pages/func.html" }
+  "routes": [
+    { "src": "/", "dest": "/src/pages/index.html" },
+    { "src": "/corp", "dest": "/src/pages/corp.html" },
+    { "src": "/func", "dest": "/src/pages/func.html" }
   ]
 }
