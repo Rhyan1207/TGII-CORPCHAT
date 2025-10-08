@@ -1,8 +1,3 @@
 {
-  "cleanUrls": true,
-  "routes": [
-    { "src": "/", "dest": "/src/pages/index.html" },
-    { "src": "/corp", "dest": "/src/pages/corp.html" },
-    { "src": "/func", "dest": "/src/pages/func.html" }
-  ]
+  "cleanUrls": true
 }
