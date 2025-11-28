@@ -1,273 +1,194 @@
-/* -------- Reset & Base -------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ====== CorpChat – Theme "Green/Blue" ====== */
+/* Paleta baseada no banner: verde, azul, ciano */
+:root{
+  --brand-green: #22c55e;      /* Verde principal */
+  --brand-blue:  #3b82f6;      /* Azul */
+  --brand-cyan:  #06b6d4;      /* Ciano */
+  --bg:          #f5f7fb;      /* Fundo claro */
+  --text:        #0f172a;      /* Texto primário (azul-escuro) */
+  --muted:       #64748b;      /* Texto secundário */
+  --card:        #ffffff;      /* Card branco */
+  --border:      #e2e8f0;      /* Borda leve */
+  --ring:        rgba(34,197,94,0.35); /* foco em verde */
 }
 
-html, body {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  background: #f8f9fa;
-  color: #222;
-  height: 100%;
-  transition: background 0.3s ease, color 0.3s ease;
+/* Dark mode vars */
+body.dark{
+  --bg:       #0b1020;
+  --text:     #e5e7eb;
+  --muted:    #9ca3af;
+  --card:     #0f172a;
+  --border:   #1f2937;
+  --ring:     rgba(56,189,248,0.35);
 }
 
-h1, h2 {
-  margin-bottom: 0.5rem;
-  font-weight: 600;
+/* ===== Reset & Base ===== */
+*{ margin:0; padding:0; box-sizing:border-box; }
+html,body{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size:16px;
+  background:var(--bg);
+  color:var(--text);
+  height:100%;
+}
+img{ max-width:100%; display:block; }
+
+h1,h2{ font-weight:700; letter-spacing:.2px; }
+h1{ font-size:1.6rem; }
+h2{ font-size:1.2rem; }
+
+.container{ max-width:980px; margin:2rem auto; padding:0 1rem; }
+
+/* ===== Header ===== */
+header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem 1.25rem;
+  background:
+    linear-gradient(135deg,var(--brand-green),var(--brand-cyan) 55%,var(--brand-blue));
+  color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.15);
+  box-shadow:0 6px 20px rgba(2,6,23,.15);
+}
+header h1{ font-size:1.35rem; text-shadow:0 1px 0 rgba(0,0,0,.1); }
+header button{
+  background:rgba(255,255,255,.15);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+  padding:.5rem 1rem; border-radius:10px;
+  backdrop-filter: blur(8px);
+  cursor:pointer; transition:all .2s ease;
+}
+header button:hover{ background:rgba(255,255,255,.25); transform:translateY(-1px); }
+
+/* ===== Cards/Sections ===== */
+.section-block{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1.1rem 1.1rem 1.2rem;
+  margin:1.2rem 0;
+  box-shadow:0 8px 24px rgba(2,6,23,.06);
+  position:relative;
+}
+.section-block h2{
+  margin-bottom:.85rem;
+  padding-left:.9rem;
+  border-left:4px solid var(--brand-green);
 }
 
-.container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
+/* Status text */
+#status-msg{ margin-top:.5rem; font-size:.95rem; color:var(--muted); }
 
-/* -------- Header -------- */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.8rem 1.2rem;
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
-  transition: background 0.3s ease, border 0.3s ease;
-}
+/* ===== Formularios / Inputs ===== */
+form,.role-select{ display:flex; flex-direction:column; gap:.8rem; }
 
-header h1 {
-  font-size: 1.4rem;
-}
-
-header button {
-  background: #222;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-header button:hover {
-  background: #444;
-}
-
-/* -------- Formulários -------- */
-form, .role-select {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-input, textarea, button, select {
-  font-size: 1rem;
-}
+input,textarea,button,select{ font-size:1rem; }
 
 input[type="email"],
 input[type="password"],
 input[type="text"],
-textarea {
-  width: 100%;
-  padding: 0.6rem 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  outline: none;
-  background: #fff;
-  color: inherit;
-  transition: background 0.3s ease, border 0.3s ease;
+textarea{
+  width:100%;
+  padding:.7rem .9rem;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  transition:border .15s ease, box-shadow .15s ease, background .2s ease;
+}
+textarea{ min-height:110px; resize:vertical; }
+
+input:focus, textarea:focus{
+  border-color:var(--brand-green);
+  box-shadow:0 0 0 4px var(--ring);
 }
 
-textarea {
-  min-height: 100px;
-  resize: vertical;
+button{
+  padding:.7rem 1.2rem;
+  color:#fff; border:none; border-radius:10px; cursor:pointer;
+  background:linear-gradient(135deg,var(--brand-green),var(--brand-blue));
+  box-shadow:0 8px 18px rgba(34,197,94,.25);
+  transition:filter .2s ease, transform .12s ease;
+}
+button:hover{ filter:brightness(1.03); transform:translateY(-1px); }
+button:disabled{ opacity:.6; cursor:not-allowed; box-shadow:none; }
+
+/* Radio da seleção de perfil (login) */
+.role-select label{ display:flex; align-items:center; gap:.45rem; color:var(--muted); }
+
+/* Erros */
+.error{ color:#ef4444; font-size:.95rem; }
+
+/* ===== Lista de Funcionários -> caixas readonly ===== */
+#employee-list{
+  list-style:none;
+  margin:0; padding:0;
+  display:grid; gap:10px;
+}
+#employee-list li{
+  background:linear-gradient(180deg,#f9fafb,#f4f7fb);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  color:var(--text);
+  user-select:none;
 }
 
-button {
-  padding: 0.6rem 1.2rem;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* ===== Chat Funcionário ===== */
+#chat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:1rem;
+  height:60vh; overflow-y:auto; margin:1rem 0;
+  box-shadow:0 8px 24px rgba(2,6,23,.06);
 }
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+.msg{
+  max-width:80%;
+  margin:.5rem 0;
+  padding:.65rem .85rem;
+  border-radius:12px; line-height:1.45; font-size:.97rem;
 }
-
-button:hover:not(:disabled) {
-  background: #444;
+.msg.user{
+  margin-left:auto;
+  color:#0b1220;
+  background:linear-gradient(135deg,#e7fff1,#c7f9db);
+  border:1px solid rgba(34,197,94,.35);
 }
-
-/* -------- Login Page -------- */
-.role-select label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.95rem;
+.msg.bot{
+  background:#f3f7ff;
+  border:1px solid rgba(59,130,246,.25);
 }
-
-.error {
-  color: crimson;
-  font-size: 0.9rem;
-  margin-top: 0.4rem;
+.input-row{ display:flex; gap:.6rem; }
+.input-row input{
+  flex:1; padding:.65rem .8rem;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:10px;
 }
+#status{ font-size:.92rem; color:var(--muted); margin-top:.35rem; }
 
-/* -------- Painel Corporação -------- */
-.section-block {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+/* ===== Dark Mode ===== */
+body.dark header{
+  color:#e5e7eb;
+  border-bottom:1px solid rgba(255,255,255,.1);
 }
-
-#status-msg {
-  margin-top: 0.6rem;
-  font-size: 0.9rem;
+body.dark header button{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.2);
 }
-
-/* -------- Chat Funcionário -------- */
-#chat {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  height: 60vh;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  transition: background 0.3s ease, border 0.3s ease;
+body.dark .section-block{
+  box-shadow:0 8px 24px rgba(0,0,0,.28);
 }
-
-.msg {
-  max-width: 80%;
-  margin: 0.5rem 0;
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  line-height: 1.4;
-  font-size: 0.95rem;
+body.dark #employee-list li{
+  background:linear-gradient(180deg,#0f172a,#0b1220);
+  border-color:var(--border); color:var(--text);
 }
-
-.msg.user {
-  background: #e7f1ff;
-  margin-left: auto;
+body.dark #chat{ border-color:var(--border); }
+body.dark .msg.bot{
+  background:#15213a; border-color:#1f2a44; color:#dbeafe;
 }
-
-.msg.bot {
-  background: #f4f4f4;
-  border: 1px solid #eee;
+body.dark .msg.user{
+  background:linear-gradient(135deg,#0f2f20,#0e3a28);
+  border-color:rgba(34,197,94,.35); color:#d1fae5;
 }
-
-.input-row {
-  display: flex;
-  gap: 0.6rem;
-}
-
-.input-row input {
-  flex: 1;
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
-  transition: background 0.3s ease, border 0.3s ease;
-}
-
-#status {
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 0.4rem;
-}
-
-/* -------- Dark Mode -------- */
-body.dark {
-  background: #121212;
-  color: #f1f1f1;
-}
-
-body.dark header {
-  background: #1e1e1e;
-  border-bottom: 1px solid #333;
-}
-
-body.dark header button {
-  background: #f1f1f1;
-  color: #121212;
-}
-
-body.dark header button:hover {
-  background: #ddd;
-}
-
-body.dark input[type="email"],
-body.dark input[type="password"],
-body.dark input[type="text"],
-body.dark textarea,
-body.dark .input-row input {
-  background: #1e1e1e;
-  border: 1px solid #444;
-  color: #f1f1f1;
-}
-
-body.dark .section-block {
-  background: #1e1e1e;
-  box-shadow: none;
-  border: 1px solid #333;
-}
-
-body.dark #chat {
-  background: #1e1e1e;
-  border: 1px solid #333;
-}
-
-body.dark .msg.user {
-  background: #2a3d5e;
-}
-
-body.dark .msg.bot {
-  background: #2b2b2b;
-  border: 1px solid #444;
-}
-
-body.dark button {
-  background: #f1f1f1;
-  color: #121212;
-}
-
-body.dark button:hover:not(:disabled) {
-  background: #ddd;
-}
-
-body.dark #status {
-  color: #aaa;
-}
-
-/* ===== Lista de funcionários (read-only boxes) ===== */
-#employee-list {
-  list-style: none;      /* sem bolinhas */
-  margin: 0;
-  padding: 0;            /* remove recuo padrão do UL */
-  display: grid;
-  gap: 10px;             /* espaço entre as caixas */
-}
-
-#employee-list li {
-  background: #f9fafb;   /* cara de input desabilitado */
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  padding: 10px 12px;    /* margem interna (resolve “muito à esquerda”) */
-  color: #222;
-  user-select: none;     /* não selecionável (sensação de read-only) */
-}
-
-/* Dark mode */
-body.dark #employee-list li {
-  background: #1e1e1e;
-  border-color: #333;
-  color: #f1f1f1;
-}
-
