@@ -8,7 +8,7 @@ async function callOpenAI(messages) {
   const resp = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      Authorization: `Bearer ${OPENAI_API_KEY}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -33,6 +33,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    // 🔥 AQUI É A CORREÇÃO: usar parseBody em vez de JSON.parse(req.body)
+    const body = await parseBody(req);
+
     const {
       orgId,
       question,
@@ -40,7 +43,7 @@ export default async function handler(req, res) {
       // Quando conectar ao DB, buscaremos por orgId direto no backend.
       companyText = "",
       laborText = "",
-    } = JSON.parse(req.body || "{}");
+    } = body || {};
 
     if (!orgId) return res.status(400).json({ error: "Missing orgId" });
     if (!question) return res.status(400).json({ error: "Missing question" });
@@ -62,24 +65,35 @@ export default async function handler(req, res) {
 
     const messages = [
       { role: "system", content: system },
-      { role: "user", content: `Contexto:\n${context}\n\nPergunta do funcionário: ${question}` },
+      {
+        role: "user",
+        content: `Contexto:\n${context}\n\nPergunta do funcionário: ${question}`,
+      },
     ];
 
     // Fallback sem chave
     if (!OPENAI_API_KEY) {
       let fallback = "Não encontrei referência a isso na base fornecida.";
       const all = `${companyText}\n${laborText}`.toLowerCase();
-      if (all.includes("horário") || question.toLowerCase().includes("horário")) {
-        fallback = "Horários não definidos no MVP. Solicite ao RH ou verifique a Base da Empresa atualizada.";
-      } else if (all.includes("pis") || question.toLowerCase().includes("pis")) {
-        fallback = "Consulte seu PIS no app oficial ou com o RH. (MVP sem integração).";
+      const qLower = question.toLowerCase();
+
+      if (all.includes("horário") || qLower.includes("horário")) {
+        fallback =
+          "Horários não definidos no MVP. Solicite ao RH ou verifique a Base da Empresa atualizada.";
+      } else if (all.includes("pis") || qLower.includes("pis")) {
+        fallback =
+          "Consulte seu PIS no app oficial ou com o RH. (MVP sem integração).";
       }
-      return res.status(200).json({ ok: true, answer: fallback, provider: "fallback" });
+
+      return res
+        .status(200)
+        .json({ ok: true, answer: fallback, provider: "fallback" });
     }
 
     const answer = await callOpenAI(messages);
     return res.status(200).json({ ok: true, answer, provider: "openai" });
   } catch (err) {
+    console.error("Ask error:", err);
     return res.status(500).json({ error: "Ask error", detail: String(err) });
   }
 }
