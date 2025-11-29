@@ -1,6 +1,3 @@
-import { parseBody, json } from "./_utils.js";
-// api/save-knowledge.js
-
 import crypto from "crypto";
 
 const ENC_SECRET = process.env.ENC_SECRET || "change-this-in-production-32bytes!!!!";
@@ -21,9 +18,19 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { orgId, companyText, laborText, aiProvider, aiApiKey } = JSON.parse(req.body || "{}");
 
-    if (!orgId) return res.status(400).json({ error: "Missing orgId" });
+    // 🔥 CORREÇÃO PRINCIPAL:
+    // Se vier objeto, usa direto. Se vier string, faz parse.
+    const body =
+      typeof req.body === "string"
+        ? JSON.parse(req.body || "{}")
+        : (req.body || {});
+
+    const { orgId, companyText, laborText, aiProvider, aiApiKey } = body;
+
+    if (!orgId) {
+      return res.status(400).json({ error: "Missing orgId" });
+    }
 
     const payload = {
       orgId,
@@ -34,14 +41,11 @@ export default async function handler(req, res) {
       updatedAt: new Date().toISOString(),
     };
 
-    // MVP: apenas retorna eco. (TODO: salvar no Supabase)
-    // Exemplo de como seria:
-    // await supabase.from("org_knowledge").upsert({ org_id: orgId, company_text: companyText, labor_text: laborText })
-    // await supabase.from("org_settings").upsert({ org_id: orgId, ai_provider: aiProvider, ai_api_key_encrypted: encrypt(aiApiKey) })
-
+    // MVP: apenas retorna eco
     return res.status(200).json({ ok: true, saved: payload });
+
   } catch (err) {
+    console.error("Save-knowledge error:", err);
     return res.status(500).json({ error: "Save error", detail: String(err) });
   }
 }
-
