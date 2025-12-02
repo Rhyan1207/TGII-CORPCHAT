@@ -442,3 +442,15 @@ img{ max-width:100%; display:block; }
   html{ font-size:17px; }
 }
 .theme-btn{ font-size:1.3rem; background:none; border:none; color:var(--muted); cursor:pointer; }
+.footer{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:1.5rem;
+}
+
+.footer-left,
+.footer-links,
+.footer-social{
+  text-align:left;
+}
