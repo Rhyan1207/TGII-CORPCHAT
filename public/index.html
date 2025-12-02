@@ -3,20 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | CorpChat</title>
-<link rel="stylesheet" href="/style.css" />
-
+  <title>CorpChat – Inteligência para RH</title>
+  <link rel="stylesheet" href="/style.css" />
 </head>
 
-<!-- Começa em modo claro; a classe "dark" será adicionada via JS -->
 <body>
-  <header style="display:flex;justify-content:space-between;align-items:center;padding:0.8rem 1.2rem;">
-    <h1>CorpChat – Login</h1>
-    <button id="theme-toggle">🌙 Modo Escuro</button>
+
+  <!-- ================= NAVBAR ================= -->
+  <nav class="nav">
+    <div class="nav-left">
+      <span class="logo">CorpChat</span>
+    </div>
+
+    <div class="nav-right">
+      <a href="sobre.html">Sobre</a>
+      <a href="precos.html">Preços</a>
+      <a href="contato.html">Contato</a>
+      <a href="#login-section" class="nav-cta">Entrar</a>
+    </div>
+  </nav>
+
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <h1>Simplifique o RH da sua empresa com IA.</h1>
+    <p class="hero-sub">
+      O CorpChat transforma documentos internos em respostas instantâneas.
+      Treine sua empresa em segundos. Zero complexidade.
+    </p>
+
+    <div class="hero-cta-group">
+      <a href="sobre.html" class="primary-cta">Entender Produto</a>
+      <a href="#login-section" class="secondary-cta">Acessar</a>
+    </div>
   </header>
 
-  <div class="container">
-    <!-- Seleção do perfil -->
+
+  <!-- ================= CARDS DE VALOR ================= -->
+  <section class="cards-grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Configuração em minutos</h3>
+      <p>Anexe a missão, regras internas e documentos. O sistema aprende na hora.</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <h3>IA treinada para RH</h3>
+      <p>Funcionários tiram dúvidas 24/7 sobre férias, FGTS, normas e processos.</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h3>Privacidade Garantida</h3>
+      <p>Todo conteúdo fica apenas no navegador. Zero servidores, zero risco.</p>
+    </div>
+
+  </section>
+
+
+  <!-- ================= CARD EXPLICATIVO GRANDE ================= -->
+  <section class="big-card">
+    <h2>Como funciona?</h2>
+
+    <ol class="steps">
+      <li>📥 A corporação faz login e envia as informações internas.</li>
+      <li>🧠 A IA processa tudo e se adapta ao vocabulário da empresa.</li>
+      <li>💬 Funcionários acessam e tiram dúvidas em tempo real.</li>
+      <li>🚀 Redução imediata de carga do RH. Zero manutenção.</li>
+    </ol>
+  </section>
+
+
+  <!-- ================= BLOCO DE LOGIN ================= -->
+  <section id="login-section" class="login-area">
+    <h2>Acessar o sistema</h2>
+    <p class="login-sub">Entre como Corporação ou Funcionário</p>
+
     <div class="role-select">
       <label>
         <input type="radio" name="role" value="corp" checked />
@@ -28,29 +95,39 @@
       </label>
     </div>
 
-    <!-- Formulário de login -->
-    <form id="login-form">
+    <form id="login-form" class="login-form">
       <input type="email" id="email" placeholder="E-mail" required />
       <input type="password" id="password" placeholder="Senha" required />
-      <button type="submit">Entrar</button>
+      <button type="submit" class="primary-cta full">Entrar</button>
     </form>
 
     <p id="error-msg" class="error"></p>
-  </div>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-left">
+      <h3>CorpChat</h3>
+      <p>IA que simplifica o RH da sua empresa.</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="sobre.html">Sobre</a>
+      <a href="precos.html">Preços</a>
+      <a href="contato.html">Contato</a>
+      <a href="#">Privacidade</a>
+    </div>
+
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">GitHub</a>
+    </div>
+  </footer>
+
 
   <script src="/js/auth.js"></script>
-  <script>
-    // Alternância de modo claro/escuro
-    const btnToggle = document.getElementById('theme-toggle');
-    btnToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      // Atualiza ícone/texto do botão
-      if (document.body.classList.contains('dark')) {
-        btnToggle.textContent = '☀️ Modo Claro';
-      } else {
-        btnToggle.textContent = '🌙 Modo Escuro';
-      }
-    });
-  </script>
+
 </body>
 </html>
