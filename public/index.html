@@ -20,6 +20,9 @@
       <a href="precos.html">Preços</a>
       <a href="contato.html">Contato</a>
       <a href="#login-section" class="nav-cta">Entrar</a>
+
+      <!-- 🔥 BOTÃO DARK MODE (RESTAURADO) -->
+      <button id="theme-toggle" class="theme-btn">🌙</button>
     </div>
   </nav>
 
@@ -41,35 +44,29 @@
 
   <!-- ================= CARDS DE VALOR ================= -->
   <section class="cards-grid">
-
-    <!-- Card 1 -->
     <div class="card">
       <div class="card-icon">⚡</div>
       <h3>Configuração em minutos</h3>
       <p>Anexe a missão, regras internas e documentos. O sistema aprende na hora.</p>
     </div>
 
-    <!-- Card 2 -->
     <div class="card">
       <div class="card-icon">🤖</div>
       <h3>IA treinada para RH</h3>
       <p>Funcionários tiram dúvidas 24/7 sobre férias, FGTS, normas e processos.</p>
     </div>
 
-    <!-- Card 3 -->
     <div class="card">
       <div class="card-icon">🔒</div>
       <h3>Privacidade Garantida</h3>
       <p>Todo conteúdo fica apenas no navegador. Zero servidores, zero risco.</p>
     </div>
-
   </section>
 
 
-  <!-- ================= CARD EXPLICATIVO GRANDE ================= -->
+  <!-- ================= CARD EXPLICATIVO ================= -->
   <section class="big-card">
     <h2>Como funciona?</h2>
-
     <ol class="steps">
       <li>📥 A corporação faz login e envia as informações internas.</li>
       <li>🧠 A IA processa tudo e se adapta ao vocabulário da empresa.</li>
@@ -85,14 +82,8 @@
     <p class="login-sub">Entre como Corporação ou Funcionário</p>
 
     <div class="role-select">
-      <label>
-        <input type="radio" name="role" value="corp" checked />
-        Corporação
-      </label>
-      <label>
-        <input type="radio" name="role" value="func" />
-        Funcionário
-      </label>
+      <label><input type="radio" name="role" value="corp" checked /> Corporação</label>
+      <label><input type="radio" name="role" value="func" /> Funcionário</label>
     </div>
 
     <form id="login-form" class="login-form">
@@ -128,6 +119,23 @@
 
 
   <script src="/js/auth.js"></script>
+
+  <!-- ================= SCRIPT MODO ESCURO ================= -->
+  <script>
+    const themeBtn = document.getElementById("theme-toggle");
+
+    // carregar tema salvo
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+      themeBtn.textContent = "☀️";
+    }
+
+    themeBtn.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark");
+      themeBtn.textContent = isDark ? "☀️" : "🌙";
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  </script>
 
 </body>
 </html>
