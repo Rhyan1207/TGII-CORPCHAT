@@ -7,12 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logout-btn");
   const status = document.getElementById("status");
 
+  // NOVO: elemento de logo
+  const logoImg = document.getElementById("corp-logo");
+
   // Garante que é funcionário
   const role = localStorage.getItem("role");
   if (role !== "func") {
     alert("Acesso restrito. Faça login como Funcionário.");
     window.location.href = "index.html";
     return;
+  }
+
+  // NOVO: carregar logo salvo
+  const savedLogo = localStorage.getItem("orgLogo");
+  if (savedLogo && logoImg) {
+    logoImg.src = savedLogo;
+    logoImg.style.display = "block";
   }
 
   // Utilitários
