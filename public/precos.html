@@ -20,6 +20,7 @@
       <a class="active" href="precos.html">Preços</a>
       <a href="contato.html">Contato</a>
       <a href="index.html#login-section" class="nav-cta">Entrar</a>
+      <button id="theme-toggle" class="theme-btn">🌙</button>
     </div>
   </nav>
 
@@ -129,6 +130,21 @@
       <a href="#">GitHub</a>
     </div>
   </footer>
+<script>
+  const themeBtn = document.getElementById("theme-toggle");
+
+  // carregar tema salvo
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    themeBtn.textContent = "☀️";
+  }
+
+  themeBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+    themeBtn.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+</script>
 
 </body>
 </html>
