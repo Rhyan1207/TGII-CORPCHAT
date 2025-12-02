@@ -6,14 +6,18 @@
   <title>Painel Corporação | CorpChat</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
+
+  <!-- HEADER -->
   <header>
     <h1>Painel da Corporação</h1>
-    <button id="logout-btn">Sair</button>
+    <button id="logout-btn" class="primary-cta" style="padding: .55rem 1rem;">Sair</button>
   </header>
 
   <main class="container">
-    <!-- Aba Funcionários -->
+
+    <!-- LISTA DE FUNCIONÁRIOS -->
     <section class="section-block">
       <h2>Funcionários (lista demonstrativa)</h2>
       <ul id="employee-list">
@@ -23,33 +27,42 @@
       </ul>
     </section>
 
-    <!-- Upload de Logo -->
+    <!-- UPLOAD DE LOGO -->
     <section class="section-block">
       <h2>Logo da Empresa</h2>
-      <input type="file" id="logo-upload" accept="image/*" />
-      <p class="hint">Formatos aceitos: PNG, JPG, JPEG. A imagem será salva somente no navegador.</p>
+
+      <input type="file" id="logo-upload" accept="image/*" class="input" />
+
+      <p class="hint" style="font-size:.9rem; color:var(--muted); margin-top:.35rem;">
+        Formatos aceitos: PNG, JPG, JPEG. A imagem será salva somente no navegador.
+      </p>
     </section>
 
-    <!-- Aba Base da Empresa -->
+    <!-- BASE DA EMPRESA -->
     <section class="section-block">
       <h2>Base de Conhecimento da Empresa</h2>
-      <textarea id="company-info" placeholder="Insira missão, valores, horários, dress code..."></textarea>
+      <textarea id="company-info" placeholder="Insira missão, valores, horários, dress code..." class="input"></textarea>
     </section>
 
-    <!-- Aba RH / Leis Trabalhistas -->
+    <!-- RH -->
     <section class="section-block">
       <h2>RH / Leis Trabalhistas</h2>
-      <textarea id="labor-info" placeholder="Informações sobre PIS, FGTS, férias, hora extra..."></textarea>
+      <textarea id="labor-info" placeholder="Informações sobre PIS, FGTS, férias, hora extra..." class="input"></textarea>
     </section>
 
-    <!-- Aba Chave da IA -->
+    <!-- CHAVE IA -->
     <section class="section-block">
       <h2>Chave da IA</h2>
-      <input type="password" id="ai-key" placeholder="Cole a chave da API da IA aqui" />
+      <input type="password" id="ai-key" placeholder="Cole a chave da API da IA aqui" class="input" />
     </section>
 
-    <button id="save-btn">Salvar Alterações</button>
+    <!-- BOTÃO SALVAR -->
+    <button id="save-btn" class="primary-cta" style="width:100%; margin-top:1rem;">
+      Salvar Alterações
+    </button>
+
     <p id="status-msg" class="status"></p>
+
   </main>
 
   <script src="/js/corp.js"></script>
