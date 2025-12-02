@@ -6,6 +6,7 @@
   <title>Painel Corporação | CorpChat</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
+  
 <body>
 
   <!-- NAVBAR PADRÃO -->
@@ -19,6 +20,7 @@
       <a href="precos.html">Preços</a>
       <a href="contato.html">Contato</a>
       <button id="logout-btn" class="nav-cta" style="border:none;cursor:pointer;">Sair</button>
+          <button id="theme-toggle" class="theme-btn">🌙</button>
     </div>
   </nav>
 
@@ -60,5 +62,21 @@
   </main>
 
   <script src="/js/corp.js"></script>
+  <script>
+  const themeBtn = document.getElementById("theme-toggle");
+
+  // carregar tema salvo
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    themeBtn.textContent = "☀️";
+  }
+
+  themeBtn.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+    themeBtn.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+  });
+</script>
+
 </body>
 </html>
