@@ -441,3 +441,4 @@ img{ max-width:100%; display:block; }
 @media (min-width:1200px){
   html{ font-size:17px; }
 }
+.theme-btn{ font-size:1.3rem; background:none; border:none; color:var(--muted); cursor:pointer; }
