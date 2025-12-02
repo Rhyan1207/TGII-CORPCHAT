@@ -509,3 +509,62 @@ input[type="file"]::file-selector-button:hover {
   filter: brightness(1.05);
 }
 
+/* ===== Ajustes MOBILE – NAV, MARGENS, ESPAÇAMENTO ===== */
+@media (max-width: 768px){
+
+  /* NAV empilhada, sem briga entre logo e links */
+  .nav{
+    padding: .7rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .35rem;
+  }
+
+  .nav-left{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* logo + botão dark lado a lado */
+  }
+
+  .nav-right{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: .75rem;
+  }
+
+  .nav-right a{
+    font-size: .9rem;
+  }
+
+  /* Conteúdo não grudado na borda do celular */
+  .container{
+    max-width: 100%;
+    padding: 0 1.25rem;
+  }
+
+  .hero,
+  .cards-grid,
+  .big-card,
+  .login-area{
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Chat um pouco mais confortável */
+  #chat{
+    height: 55vh;
+  }
+
+  /* Footer alinhado e menos “solto” no mobile */
+  .footer{
+    padding: 2.5rem 1.25rem;
+    margin: 0 auto;
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+}
