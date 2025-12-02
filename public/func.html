@@ -6,49 +6,40 @@
   <title>Chat do Funcionário | CorpChat</title>
   <link rel="stylesheet" href="/style.css" />
 </head>
-
 <body>
 
-  <!-- HEADER PADRÃO -->
-  <header>
-    <h1>Chat do Funcionário</h1>
-    <button id="logout-btn" class="primary-cta" style="padding:.55rem 1rem;">Sair</button>
-  </header>
+  <!-- NAVBAR PADRÃO -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a href="index.html" class="logo">CorpChat</a>
+    </div>
+
+    <div class="nav-right">
+      <button id="logout-btn" class="nav-cta" style="border:none;cursor:pointer;">Sair</button>
+    </div>
+  </nav>
 
   <main class="container">
 
-    <!-- LOGO DA EMPRESA (carregado via JS) -->
-    <section class="section-block" style="text-align:center;">
-      <img id="corp-logo" alt="Logo da Empresa" style="
-        max-width:160px;
-        max-height:160px;
-        object-fit:contain;
-        display:none;
-        margin:0 auto;
-      " />
+    <!-- LOGO EM CARD -->
+    <section class="section-block center">
+      <img id="corp-logo" alt="Logo da Empresa" style="max-width:140px; display:none;" />
     </section>
 
-    <!-- ÁREA DO CHAT -->
+    <!-- CHAT -->
     <section class="section-block">
       <div id="chat" aria-live="polite" aria-label="Mensagens do chat"></div>
 
       <div class="input-row" style="margin-top:1rem;">
-        <input 
-          id="question" 
-          type="text" 
-          class="input"
-          placeholder="Digite sua pergunta..."
-          autocomplete="off"
-        />
-        <button id="send-btn" class="primary-cta">Enviar</button>
+        <input id="question" type="text" placeholder="Digite sua pergunta..." autocomplete="off" />
+        <button id="send-btn" class="primary-cta" style="padding:.75rem 1rem;">Enviar</button>
       </div>
 
-      <p id="status" style="margin-top:.8rem; font-size:.9rem; color:var(--muted);"></p>
+      <p id="status"></p>
     </section>
 
   </main>
 
   <script src="/js/func.js"></script>
-
 </body>
 </html>
