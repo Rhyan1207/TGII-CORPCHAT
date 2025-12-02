@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const statusMsg = document.getElementById("status-msg");
   const logoutBtn = document.getElementById("logout-btn");
 
+  // Elemento novo: upload de logo
+  const logoUpload = document.getElementById("logo-upload");
+
   // Verifica se está logado como corporação
   const role = localStorage.getItem("role");
   if (role !== "corp") {
@@ -21,12 +24,44 @@ document.addEventListener("DOMContentLoaded", () => {
   const savedCompany = localStorage.getItem("companyInfo");
   const savedLabor = localStorage.getItem("laborInfo");
   const savedKey = localStorage.getItem("aiKey");
+  const savedLogo = localStorage.getItem("orgLogo");
 
   if (savedCompany) companyInfo.value = savedCompany;
   if (savedLabor) laborInfo.value = savedLabor;
   if (savedKey) aiKey.value = savedKey;
 
-  // Função de salvar
+  // Apenas exibir que o logo já existe (se quiser futuramente mostrar preview)
+  if (savedLogo) {
+    console.log("Logo carregado do localStorage.");
+  }
+
+  // Função: capturar imagem, converter para base64 e salvar
+  if (logoUpload) {
+    logoUpload.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const base64 = reader.result; // Já vem em base64
+        localStorage.setItem("orgLogo", base64);
+        statusMsg.textContent = "Logo salva no navegador.";
+        statusMsg.style.color = "green";
+
+        setTimeout(() => (statusMsg.textContent = ""), 2500);
+      };
+
+      reader.onerror = () => {
+        statusMsg.textContent = "Erro ao carregar a imagem.";
+        statusMsg.style.color = "crimson";
+      };
+
+      reader.readAsDataURL(file); // Converte para Base64
+    });
+  }
+
+  // Função de salvar textos e chave
   saveBtn.addEventListener("click", async () => {
     statusMsg.textContent = "";
     saveBtn.disabled = true;
@@ -46,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
           companyText: companyInfo.value,
           laborText: laborInfo.value,
           aiProvider: "openai",
-          aiApiKey: aiKey.value, // MVP: ok; produção: usar painel seguro/ENV
+          aiApiKey: aiKey.value,
         }),
       });
 
@@ -74,4 +109,3 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "index.html";
   });
 });
-
