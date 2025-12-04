@@ -562,6 +562,12 @@ input[type="file"]::file-selector-button:hover {
     margin-left: 1rem;
     margin-right: 1rem;
   }
+    .section-block,
+  .big-card {
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+  }
+  
 
   /* Garante que grids de info da página Sobre não grudem nas bordas */
   .info-grid {
