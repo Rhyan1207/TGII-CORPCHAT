@@ -7,8 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const logoutBtn = document.getElementById("logout-btn");
   const status = document.getElementById("status");
 
-  // NOVO: elemento de logo
+  // NOVO: elementos de identidade
   const logoImg = document.getElementById("corp-logo");
+  const companyNameBox = document.getElementById("company-name-box");
+  const companyNameDisplay = document.getElementById("company-name-display");
 
   // Garante que é funcionário
   const role = localStorage.getItem("role");
@@ -18,11 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // NOVO: carregar logo salvo
+  // Carregar logo salvo
   const savedLogo = localStorage.getItem("orgLogo");
   if (savedLogo && logoImg) {
     logoImg.src = savedLogo;
     logoImg.style.display = "block";
+  }
+
+  // NOVO: carregar nome da empresa
+  const savedCompanyName = localStorage.getItem("companyName");
+  if (savedCompanyName && companyNameBox && companyNameDisplay) {
+    companyNameDisplay.textContent = savedCompanyName;
+    companyNameBox.style.display = "block";
   }
 
   // Utilitários
@@ -36,9 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function askBackend(question) {
     const payload = {
-      orgId: "demo-org", // TODO: substituir por orgId real quando houver auth/DB
+      orgId: "demo-org",
       question,
-      // Enquanto não buscamos no DB, enviamos o que a corporação salvou localmente
       companyText: localStorage.getItem("companyInfo") || "",
       laborText: localStorage.getItem("laborInfo") || "",
     };
@@ -66,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
     questionInput.value = "";
     questionInput.focus();
 
-    // UI: bloqueia envio e mostra status
     sendBtn.disabled = true;
     status.textContent = "Consultando IA...";
     status.style.color = "#666";
