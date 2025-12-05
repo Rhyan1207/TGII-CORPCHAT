@@ -565,8 +565,8 @@ input[type="file"]::file-selector-button:hover {
   /* Corrige listas numeradas estourando no mobile */
 .section-block ol,
 .section-block ul {
-  padding-left: 1.4rem !important;
-  padding-right: 0.6rem !important;
+  padding-left: 1.4rem ;
+  padding-right: 0.6rem ;
 }
     .section-block,
   .big-card {
